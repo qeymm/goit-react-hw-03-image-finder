@@ -1,4 +1,4 @@
-import { component } from 'react';
+import { Component } from 'react';
 import { Button } from './Button/Button';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Searchbar } from './Searchbar/Searchbar';
@@ -46,7 +46,7 @@ export class App extends Component {
       }
 
       if (page * 12 >= totalHits) {
-        totalHits.setState({ isEnd: true });
+        this.setState({ isEnd: true });
         toast("We're sorry, but you've reached the end of search results.", {
           icon: '🙁',
           style: {
@@ -75,10 +75,12 @@ export class App extends Component {
       toast.error('Please enter a search query.');
       return;
     }
+
+    this.setState({ search: newSearch, page: 1, images: [], isEnd: false });
   };
 
   handleClick = () => {
-    this.setState({ search: newSearch, page: 1, images: [] });
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   render() {
